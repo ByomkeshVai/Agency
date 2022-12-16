@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +19,14 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.home');
+    Route::get('/all-banner', [App\Http\Controllers\Admin\BannerController::class, 'all_banner'])->name('admin.all_banner');
+    Route::get('/add-banner', [App\Http\Controllers\Admin\BannerController::class, 'add_banner'])->name('admin.add_banner');
+    Route::post('/banner/store', [App\Http\Controllers\Admin\BannerController::class, 'store'])->name('admin.banner_store');
+
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
