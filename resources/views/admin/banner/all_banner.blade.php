@@ -16,7 +16,7 @@
 
                             <div class="adv-table-table__button">
                                 <div class="dropdown">
-                                    <a class="btn btn-primary dropdown-toggle atbd-select" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-primary dropdown-toggle atbd-select" href="#"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Export
                                     </a>
 
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div id="filter-form-container"></div>
-                        <table class="table mb-0 table-borderless adv-table" data-sorting="true" data-filter-container="#filter-form-container" data-paging-current="1" data-paging-position="right" data-paging-size="10">
+                        <table class="table mb-0 table-borderless" data-sorting="true" data-filter-container="#filter-form-container" data-paging-current="1" data-paging-position="right" data-paging-size="10">
                             <thead>
                                 <tr class="userDatatable-header">
                                     <th>
@@ -52,9 +52,8 @@
                             </thead>
                             <tbody>
 
-
-                               <tr>
                                 @foreach ($banner as $item)
+                               <tr>
                                 <td>
                                     <div class="userDatatable-content">{{$loop->iteration}}</div>
                                 </td>
@@ -62,7 +61,7 @@
                                     <div class="d-flex">
                                         <div class="userDatatable-inline-title">
                                             <a href="#" class="text-dark fw-500">
-                                                <h6>{{$banner->title}} </h6>
+                                                <h6>{{$item->title}} </h6>
                                             </a>
                                         </div>
                                     </div>
@@ -71,15 +70,13 @@
                                     <div class="d-flex">
                                         <div class="userDatatable-inline-title">
                                             <a href="#" class="text-dark fw-500">
-                                                <h6>{{$banner->short_description}}</h6>
+                                                <h6>{{$item->short_description}}</h6>
                                             </a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="userDatatable-content d-inline-block">
-                                        <span class="bg-opacity-success  color-success rounded-pill userDatatable-content-status active">{{$banner->status}}</span>
-                                    </div>
+                                    <input type="checkbox" data-toggle="switchbutton" name="toggle" value="{{$item->id}}" {{$item->status=='active' ? 'checked' : ''}} data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-offstyle="danger">
                                 </td>
                                 <td>
                                     <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
@@ -88,7 +85,7 @@
                                                 <span data-feather="eye"></span></a>
                                         </li>
                                         <li>
-                                            <a href="#" class="edit">
+                                            <a href="{{route('admin.edit_banner', $item->id)}}" class="edit">
                                                 <span data-feather="edit"></span></a>
                                         </li>
                                         <li>
@@ -97,10 +94,9 @@
                                         </li>
                                     </ul>
                                 </td>
-                                @endforeach
                             </tr>
 
-
+                            @endforeach
 
                             </tbody>
                         </table>
@@ -112,6 +108,33 @@
     </div>
 </div>
 
+@endsection
 
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+
+<script>
+    $('input[name=toggle]').change(function(){
+        var mode = $(this).prop('checked');
+        var id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "{{route('admin.bannerStatus')}}",
+            data: {
+                _token: '{{csrf_token()}}',
+                mode: mode,
+                id:id,
+            },
+            success: function (response) {
+                if(response.status){
+                    alert(response.msg);
+                }
+                else{
+                    alert('Please Try Again Later');
+                }
+            }
+        });
+    })
+</script>
 
 @endsection

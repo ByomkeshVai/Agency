@@ -47,9 +47,15 @@
 
     <link rel="stylesheet" href="{{asset('admin')}}/style.css">
 
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+
+
+
+
+
     <!-- endinject -->
 
-    <link rel="icon" type="{{asset('admin')}}/image/png" sizes="16x16" href="img/favicon.png">
+    <link rel="icon" type="{{asset('admin')}}/image/png" sizes="16x16" href="{{asset('admin')}}/img/favicon.png">
 </head>
 
 <body class="layout-light side-menu overlayScroll">
@@ -88,6 +94,7 @@
     </div>
     <div class="overlay-dark-sidebar"></div>
 
+    @yield('script')
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDduF2tLXicDEPDMAtC6-NLOekX0A5vlnY"></script>
     <!-- inject:js-->
     <script src="{{asset('admin')}}/assets/vendor_assets/js/jquery/jquery-3.5.1.min.js"></script>
@@ -135,6 +142,8 @@
     <script src="{{asset('admin')}}/assets/theme_assets/js/jvectormap-init.js"></script>
     <script src="{{asset('admin')}}/assets/theme_assets/js/leaflet-init.js"></script>
     <script src="{{asset('admin')}}/assets/theme_assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+
     <!-- endinject-->
 </body>
 

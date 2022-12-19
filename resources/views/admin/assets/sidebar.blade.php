@@ -27,6 +27,24 @@
 
                     </ul>
                 </li>
+
+                <li class="has-child">
+                    <a href="#" class="">
+                        <span data-feather="layout" class="nav-icon"></span>
+                        <span class="menu-text">Service Management</span>
+                        <span class="toggle-icon"></span>
+                    </a>
+                    <ul>
+                        <li class="l_sidebar">
+                            <a href="{{route('admin.all_banner')}}">Show Services</a>
+                        </li>
+                        <li class="l_sidebar">
+                            <a href="{{route('admin.add_banner')}}">Add Services</a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <li>
                     <a href="changelog.html" class="">
                         <span data-feather="activity" class="nav-icon"></span>
